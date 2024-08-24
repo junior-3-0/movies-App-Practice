@@ -1,0 +1,24 @@
+.ant-input,
+.ant-input:focus-visible,
+.ant-input:focus-within {
+  color: #fafafa;
+  font-size: 16px;
+  background-color: #2e2d3d;
+  border: none;
+  height: 60px;
+  padding: 10px 20px;
+}
+
+.ant-input:hover {
+  background-color: #2e2d3d;
+  border-color: none;
+}
+
+.ant-input:focus {
+  border-color: none;
+  outline: 2px solid #6c38cc;
+}
+
+.ant-input::placeholder {
+  color: #403d59;
+}

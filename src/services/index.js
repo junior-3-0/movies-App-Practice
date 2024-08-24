@@ -10,13 +10,28 @@ export default class Service {
       throw new Error(`Could not fetch ${url}, received ${response.status}`)
     }
     const data = await response.json()
+
     return data
   }
 
-  async getMovieStart() {
-    const res = await this.getResource('discover/movie?api_key=7cbe70db57414f8acb8748b282af2cdb')
-    const { results } = res
-    return results.map((item) => this.transformMovie(item))
+  async getMovies(currentTitle, currentPage) {
+    let title = `query=${currentTitle}&`
+    let type = 'search/'
+    let page = `&page=${currentPage}`
+    if (!currentPage) {
+      page = '&page=1'
+    }
+    if (!currentTitle) {
+      title = ''
+      type = 'discover/'
+    }
+
+    const res = await this.getResource(
+      `${type}movie?${title}include_adult=false&language=en-US${page}&api_key=7cbe70db57414f8acb8748b282af2cdb`
+    )
+    const { results, total_pages: pages } = res
+
+    return { movies: results.map((item) => this.transformMovie(item)), pages }
   }
 
   // eslint-disable-next-line

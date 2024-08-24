@@ -1,0 +1,12 @@
+.ant-pagination {
+  margin: 0 auto;
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+:where(.css-dev-only-do-not-override-khq3u7).ant-pagination .ant-pagination-item-active a,
+:where(.css-dev-only-do-not-override-khq3u7).ant-pagination .ant-pagination-item-active a:hover {
+  color: #fafafa;
+}
