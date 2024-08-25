@@ -1,0 +1,13 @@
+.ant-tabs {
+  width: 100%;
+}
+
+.ant-tabs-nav::before {
+  position: absolute;
+  right: 50% !important;
+  left: 50% !important;
+  border-bottom: 2px solid #f0f0f0;
+  content: '';
+  width: 180px !important;
+  transform: translateX(-50%) !important;
+}

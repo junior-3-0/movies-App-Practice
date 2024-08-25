@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   background-color: #2e2d3d;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   display: flex;
@@ -38,6 +39,7 @@
   letter-spacing: 0%;
   text-align: left;
   margin: 0;
+  padding-right: 20px;
 }
 
 .card-date {
@@ -54,6 +56,7 @@
 
 .card-genre {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -75,6 +78,7 @@
 }
 
 .card-plot {
+  margin: 0 0 5px 0;
   font-family: 'Inter', sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -84,4 +88,38 @@
   letter-spacing: 0px;
   text-align: left;
   color: #fafafa;
+}
+
+.card-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-rating {
+  position: absolute;
+  top: 12px;
+  right: 9px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #e90000;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fafafa;
+}
+/* От 0 до 3 - #E90000
+От 3 до 5 - #E97E00
+От 5 до 7 - #E9D100
+Выше 7 - #66E900 */
+
+.ant-rate {
+  position: absolute;
+  right: 20px;
+  bottom: 12px;
 }

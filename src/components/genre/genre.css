@@ -9,3 +9,20 @@
   background-color: #fafafa;
   padding: 0 5px;
 }
+
+.button {
+  box-sizing: border-box;
+  border: 1px solid rgb(217, 217, 217);
+  border-radius: 3px;
+  background: #6c38cc;
+  border: 1px solid #4d5064;
+  color: #fafafa;
+  font-family: 'Inter', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0%;
+  text-align: left;
+}

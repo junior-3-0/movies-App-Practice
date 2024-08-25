@@ -5,9 +5,11 @@ import Card from '../card'
 import Service from '../../services'
 import Spiner from '../spiner'
 import Error from '../error'
-import Search from '../search'
+// import Search from '../search'
 import NotMovies from '../not-movies'
 import PaginationPanel from '../pagination'
+import Tab from '../tabs'
+import { ServiceProvider } from '../service-context'
 
 import './app.css'
 
@@ -92,6 +94,13 @@ export default class App extends Component {
       .catch(this.onError)
   }
 
+  getListMovies = () => {
+    this.service
+      .getRating()
+      .then((results) => this.moviesLoaded(results))
+      .catch(this.onError)
+  }
+
   // eslint-disable-next-line
   renderCard(arr) {
     return arr.map((mov) => <Card key={mov.id} data={mov} />)
@@ -107,15 +116,17 @@ export default class App extends Component {
     const notMovies = movies.length ? null : <NotMovies />
 
     return (
-      <div className="container">
-        <Search search={this.onSearch} />
-        {element}
-        {spin}
-        {err}
-        {off}
-        {notMovies}
-        <PaginationPanel pages={pages} onChangePage={this.onChangePage} defaultCurrent={page} />
-      </div>
+      <ServiceProvider value={this.service}>
+        <div className="container">
+          <Tab search={this.onSearch} moviesList={this.getListMovies} loadedMovies={this.loadedMovies} />
+          {element}
+          {spin}
+          {err}
+          {off}
+          {notMovies}
+          <PaginationPanel pages={pages} onChangePage={this.onChangePage} defaultCurrent={page} />
+        </div>
+      </ServiceProvider>
     )
   }
 }
