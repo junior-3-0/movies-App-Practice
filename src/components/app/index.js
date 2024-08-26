@@ -24,7 +24,9 @@ export default class App extends Component {
       error: false,
       page: 1,
       title: '',
+      rateList: false,
     }
+    this.getGenres()
   }
 
   componentDidMount() {
@@ -45,6 +47,17 @@ export default class App extends Component {
     if (prevState.page !== page || prevState.title !== title) {
       this.loadedMovies(title, page)
     }
+  }
+
+  componentDidCatch() {
+    this.setState({
+      movies: [],
+      loading: false,
+      error: true,
+      page: 1,
+      title: '',
+      rateList: false,
+    })
   }
 
   onChangePage = (currentPage) => {
@@ -88,22 +101,38 @@ export default class App extends Component {
   }
 
   loadedMovies = (title, currentPage) => {
-    this.service
-      .getMovies(title, currentPage)
-      .then((results) => this.moviesLoaded(results, currentPage))
-      .catch(this.onError)
+    this.setState({ rateList: false })
+    const { rateList } = this.state
+    if (!rateList) {
+      this.service
+        .getMovies(title, currentPage)
+        .then((results) => this.moviesLoaded(results, currentPage))
+        .catch(this.onError)
+    } else {
+      this.getListMovies(currentPage)
+    }
   }
 
-  getListMovies = () => {
+  getListMovies = (currentPage) => {
+    if (!currentPage) {
+      this.setState({ page: 1 })
+    }
+    this.setState({ rateList: true })
     this.service
-      .getRating()
+      .getRating(currentPage)
       .then((results) => this.moviesLoaded(results))
       .catch(this.onError)
   }
 
   // eslint-disable-next-line
   renderCard(arr) {
-    return arr.map((mov) => <Card key={mov.id} data={mov} />)
+    return arr.map((mov) => <Card key={mov.id} data={mov} setRating={this.service.setRating} />)
+  }
+
+  // eslint-disable-next-line react/no-unused-class-component-methods
+  getGenres = async () => {
+    const res = await this.service.getGenres()
+    this.genres = res
   }
 
   render() {
@@ -116,7 +145,7 @@ export default class App extends Component {
     const notMovies = movies.length ? null : <NotMovies />
 
     return (
-      <ServiceProvider value={this.service}>
+      <ServiceProvider value={this.genres}>
         <div className="container">
           <Tab search={this.onSearch} moviesList={this.getListMovies} loadedMovies={this.loadedMovies} />
           {element}

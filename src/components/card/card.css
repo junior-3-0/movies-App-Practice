@@ -103,7 +103,7 @@
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  border: 2px solid #e90000;
+  border: 2px solid transparent;
   font-size: 12px;
   font-weight: 400;
   line-height: 22px;
@@ -111,12 +111,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: transparent;
+}
+
+.card-rating-03 {
+  border: 2px solid #e90000;
   color: #fafafa;
 }
-/* От 0 до 3 - #E90000
-От 3 до 5 - #E97E00
-От 5 до 7 - #E9D100
-Выше 7 - #66E900 */
+
+.card-rating-35 {
+  border: 2px solid #e97e00;
+  color: #fafafa;
+}
+
+.card-rating-57 {
+  border: 2px solid #e9d100;
+  color: #fafafa;
+}
+
+.card-rating-7 {
+  border: 2px solid #66e900;
+  color: #fafafa;
+}
 
 .ant-rate {
   position: absolute;
