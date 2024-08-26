@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { format } from 'date-fns'
+import PropTypes from 'prop-types'
 
 import Rates from '../rate'
 import Genres from '../genre'
@@ -16,7 +17,15 @@ export default class Card extends Component {
     }
   }
 
-  // eslint-disable-next-line
+  rateTheMovie = (id, value) => {
+    const { setRating } = this.props
+    this.setState({
+      rate: value,
+    })
+    setRating(id, value)
+  }
+
+  // eslint-disable-next-line class-methods-use-this
   shortText(text, num) {
     const length = 30
     if (text.length < length) {
@@ -34,14 +43,6 @@ export default class Card extends Component {
       return date
     }
     return format(new Date(date), 'PP')
-  }
-
-  rateTheMovie = (id, value) => {
-    const { setRating } = this.props
-    this.setState({
-      rate: value,
-    })
-    setRating(id, value)
   }
 
   render() {
@@ -78,4 +79,24 @@ export default class Card extends Component {
       </article>
     )
   }
+}
+
+Card.defaultProps = {
+  data: {
+    title: 'Title',
+    overview: 'Lorem is lorem Lorem is lorem Lorem is lorem.',
+    poster: null,
+    id: (Math.random() * 1000).toFixed(0),
+    genreIds: [27],
+  },
+}
+
+Card.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    overview: PropTypes.string,
+    poster: PropTypes.string,
+    id: PropTypes.number,
+    genreIds: PropTypes.arrayOf(PropTypes.number),
+  }),
 }

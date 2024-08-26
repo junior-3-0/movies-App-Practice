@@ -1,6 +1,7 @@
 export default class Service {
   constructor() {
     this.guestSession()
+    this.getGenresArr()
   }
 
   apiBase = 'https://api.themoviedb.org/3/'
@@ -9,10 +10,6 @@ export default class Service {
     'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3Y2JlNzBkYjU3NDE0ZjhhY2I4NzQ4YjI4MmFmMmNkYiIsIm5iZiI6MTcyNDY3MDIxMS42NjgzNzIsInN1YiI6IjY2YzQ4N2JjMzYwYTI0ZmVkZmQ3MjgyZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.EqH1Y_Gy79zOe3CT4i90-AWi_nybN1sBLk1R0tr9TEs'
 
   apiKey = '7cbe70db57414f8acb8748b282af2cdb'
-
-  // 'https://api.themoviedb.org/3/search/movie?query=return&include_adult=false&language=en-US&page=1&api_key=7cbe70db57414f8acb8748b282af2cdb'
-  // 'https://api.themoviedb.org/3/discover/movie?api_key=7cbe70db57414f8acb8748b282af2cdb'
-  // 'search/movie?query=return&include_adult=false&language=en-US&page=1'
 
   async getResource(url, options = null) {
     const response = await fetch(`${this.apiBase}${url}`, options)
@@ -40,7 +37,6 @@ export default class Service {
     return sessionId
   }
 
-  // eslint-disable-next-line class-methods-use-this
   getGenres = async () => {
     const options = {
       method: 'GET',
@@ -56,7 +52,12 @@ export default class Service {
     return genres
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  getGenresArr = async () => {
+    const res = await this.getGenres()
+    this.genres = res
+    return res
+  }
+
   async getRating(currentPage) {
     let page = `${currentPage}`
     if (!currentPage) {
@@ -116,7 +117,7 @@ export default class Service {
     return { movies: results.map((item) => this.transformMovie(item)), pages }
   }
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line class-methods-use-this
   transformMovie(movie) {
     return {
       title: movie.title,

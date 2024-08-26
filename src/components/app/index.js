@@ -5,7 +5,6 @@ import Card from '../card'
 import Service from '../../services'
 import Spiner from '../spiner'
 import Error from '../error'
-// import Search from '../search'
 import NotMovies from '../not-movies'
 import PaginationPanel from '../pagination'
 import Tab from '../tabs'
@@ -26,16 +25,13 @@ export default class App extends Component {
       title: '',
       rateList: false,
     }
-    this.getGenres()
   }
 
   componentDidMount() {
     const { page, title } = this.state
 
     this.loadedMovies(title, page)
-    window.addEventListener('offline', () =>
-      this.setState({ offline: true, loading: false, error: false, movies: null })
-    )
+    window.addEventListener('offline', () => this.setState({ offline: true, loading: false, error: false, movies: [] }))
     window.addEventListener('online', () => {
       this.setState({ offline: false })
       this.loadedMovies(title, page)
@@ -43,15 +39,14 @@ export default class App extends Component {
   }
 
   componentDidUpdate(_, prevState) {
-    const { page, title } = this.state
-    if (prevState.page !== page || prevState.title !== title) {
+    const { page, title, rateList } = this.state
+    if (prevState.page !== page || prevState.title !== title || prevState.rateList !== rateList) {
       this.loadedMovies(title, page)
     }
   }
 
   componentDidCatch() {
     this.setState({
-      movies: [],
       loading: false,
       error: true,
       page: 1,
@@ -100,8 +95,11 @@ export default class App extends Component {
     })
   }
 
+  onTabs = () => {
+    this.setState({ rateList: false, page: 1 })
+  }
+
   loadedMovies = (title, currentPage) => {
-    this.setState({ rateList: false })
     const { rateList } = this.state
     if (!rateList) {
       this.service
@@ -124,16 +122,7 @@ export default class App extends Component {
       .catch(this.onError)
   }
 
-  // eslint-disable-next-line
-  renderCard(arr) {
-    return arr.map((mov) => <Card key={mov.id} data={mov} setRating={this.service.setRating} />)
-  }
-
-  // eslint-disable-next-line react/no-unused-class-component-methods
-  getGenres = async () => {
-    const res = await this.service.getGenres()
-    this.genres = res
-  }
+  renderCard = (arr) => arr.map((mov) => <Card key={mov.id} data={mov} setRating={this.service.setRating} />)
 
   render() {
     const { movies, error, loading, offline, page, pages } = this.state
@@ -142,12 +131,12 @@ export default class App extends Component {
     const err = error ? <Error message="Oops! Something went wrong." /> : null
     const element = movies ? this.renderCard(movies) : null
     const off = offline ? <Error message="Please check your internet connection and try again." /> : null
-    const notMovies = movies.length ? null : <NotMovies />
+    const notMovies = movies.length && !error ? null : <NotMovies />
 
     return (
-      <ServiceProvider value={this.genres}>
+      <ServiceProvider value={this.service.genres}>
         <div className="container">
-          <Tab search={this.onSearch} moviesList={this.getListMovies} loadedMovies={this.loadedMovies} />
+          <Tab search={this.onSearch} moviesList={this.getListMovies} loadedMovies={this.onTabs} />
           {element}
           {spin}
           {err}

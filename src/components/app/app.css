@@ -11,3 +11,27 @@
   min-height: 100vh;
   box-sizing: border-box;
 }
+
+@media (max-width: 998px) {
+  .container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 769px) {
+  .container {
+    padding: 10px 35px 14px;
+    justify-content: center;
+    column-gap: 30px;
+    row-gap: 35px;
+  }
+}
+
+@media (max-width: 515px) {
+  .container {
+    padding: 10px 16px 14px;
+    justify-content: center;
+    column-gap: 30px;
+    row-gap: 35px;
+  }
+}

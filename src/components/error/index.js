@@ -16,7 +16,9 @@ function Error(props) {
         },
       }}
     >
-      <Alert message="Error" description={message} type="error" showIcon />
+      <div className="overlay">
+        <Alert message="Error" description={message} type="error" showIcon />
+      </div>
     </ConfigProvider>
   )
 }

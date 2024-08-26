@@ -139,3 +139,52 @@
   right: 20px;
   bottom: 12px;
 }
+
+@media (max-width: 768px) {
+  .card {
+    width: 554px;
+  }
+  .ant-rate {
+    position: absolute;
+    right: auto;
+    bottom: 12px;
+  }
+}
+
+@media (max-width: 515px) {
+  .card {
+    width: 388px;
+    padding: 15px;
+  }
+  .ant-rate {
+    position: absolute;
+    right: 10px;
+    bottom: 12px;
+  }
+  .card-img-wrapper {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 80px;
+    height: 120px;
+  }
+  .card-description {
+    max-width: 100%;
+    display: block;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0;
+  }
+  .card-title-wrapper {
+    padding-left: 90px;
+    margin-bottom: 15px;
+  }
+  .card-date {
+    padding-left: 90px;
+    margin-bottom: 15px;
+  }
+  .card-genre {
+    padding-left: 90px;
+    margin-bottom: 30px;
+  }
+}

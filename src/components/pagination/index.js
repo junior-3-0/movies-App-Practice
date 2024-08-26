@@ -1,5 +1,6 @@
 import React from 'react'
 import { Pagination, ConfigProvider } from 'antd'
+import PropTypes from 'prop-types'
 
 import './pagination.css'
 
@@ -34,3 +35,13 @@ function PaginationPanel(props) {
 }
 
 export default PaginationPanel
+
+PaginationPanel.prototype.defaultProps = {
+  pages: 1,
+  defaultCurrent: 1,
+}
+
+PaginationPanel.prototype.propTypes = {
+  pages: PropTypes.number,
+  defaultCurrent: PropTypes.number,
+}
