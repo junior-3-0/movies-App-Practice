@@ -7,6 +7,9 @@ function Genres(props) {
   return (
     <ServiceConsumer>
       {(genresArray) => {
+        if (!genresArray) {
+          return null
+        }
         const indx = genresArray.find((item) => item.id === genreId)
         const genreName = indx.name
         return (
