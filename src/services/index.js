@@ -6,10 +6,9 @@ export default class Service {
 
   apiBase = 'https://api.themoviedb.org/3/'
 
-  bearer =
-    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3Y2JlNzBkYjU3NDE0ZjhhY2I4NzQ4YjI4MmFmMmNkYiIsIm5iZiI6MTcyNDY3MDIxMS42NjgzNzIsInN1YiI6IjY2YzQ4N2JjMzYwYTI0ZmVkZmQ3MjgyZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.EqH1Y_Gy79zOe3CT4i90-AWi_nybN1sBLk1R0tr9TEs'
+  bearer = process.env.REACT_APP_BEARER
 
-  apiKey = '7cbe70db57414f8acb8748b282af2cdb'
+  apiKey = process.env.REACT_APP_API_KEY
 
   async getResource(url, options = null) {
     const response = await fetch(`${this.apiBase}${url}`, options)
